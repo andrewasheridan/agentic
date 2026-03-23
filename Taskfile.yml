@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  setup:
+    desc: Symlink versioned .claude contents into ~/.claude
+    summary: |
+      Creates ~/.claude/ as a real directory and symlinks each versioned item
+      from this repo into it. ~/.claude runtime state (worktrees, etc.) stays
+      outside the repo. Safe to re-run after pulling changes or adding new items.
+    cmds:
+      - mkdir -p $HOME/.claude
+      - ln -shf {{.ROOT_DIR}}/.claude/agents        $HOME/.claude/agents
+      - ln -shf {{.ROOT_DIR}}/.claude/skills         $HOME/.claude/skills
+      - ln -shf {{.ROOT_DIR}}/.claude/settings.json  $HOME/.claude/settings.json
+      - |
+        echo "Done. Linked:"
+        echo "  ~/.claude/agents        -> {{.ROOT_DIR}}/.claude/agents"
+        echo "  ~/.claude/skills        -> {{.ROOT_DIR}}/.claude/skills"
+        echo "  ~/.claude/settings.json -> {{.ROOT_DIR}}/.claude/settings.json"
+        echo ""
+        echo "Runtime state (worktrees, etc.) stays in ~/.claude — not inside the repo."
