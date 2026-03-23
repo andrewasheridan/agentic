@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed truncated paths in the `task setup` confirmation message by expanding `{{.ROOT_DIR}}` via a shell variable instead of relying on Taskfile template expansion in multiline pipe blocks
+
 ## [0.1.0] - 2026-03-22
 
 ### Added
