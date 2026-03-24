@@ -10,6 +10,7 @@ Each Claude Code session picks these up via granular symlinks managed by `Taskfi
 ```
 .claude/
   agents/          # One .md file per agent (YAML frontmatter + instructions)
+  hooks/           # Hook scripts (run by Claude Code on tool events)
   skills/          # One subdirectory per skill, containing SKILL.md
   settings.json    # Sets orchestrator as the default agent
 docs/
@@ -47,6 +48,19 @@ Taskfile.yml        # Task runner (task setup, etc.)
 | `audit` | `.claude/skills/audit/SKILL.md` | `/audit` |
 | `check` | `.claude/skills/check/SKILL.md` | `/check` |
 | `new-agent` | `.claude/skills/new-agent/SKILL.md` | `/new-agent` |
+| `strategic-compact` | `.claude/skills/strategic-compact/SKILL.md` | `/strategic-compact` |
+
+## Hooks
+
+Hook scripts live in `.claude/hooks/` and are symlinked to `~/.claude/hooks/` by `task setup`.
+They run automatically on Claude Code tool events (configured in `settings.json`).
+
+| Hook | Event | Purpose |
+|---|---|---|
+| `strategic_compact.py` | `PreToolUse` | Suggests `/compact` at tool-call thresholds |
+
+Configure via env vars in `settings.json` → `env`: `COMPACT_THRESHOLD` (default 50), `COMPACT_REPEAT_INTERVAL` (default 25), `COUNTER_TTL_HOURS` (default 24).
+To disable, remove the hook entry from `settings.json` → `hooks.PreToolUse`.
 
 ## Conventions (for code these agents work on)
 
@@ -73,6 +87,13 @@ Taskfile.yml        # Task runner (task setup, etc.)
 1. Create `.claude/skills/<name>/SKILL.md` with YAML frontmatter + instructions
 2. Add a row to the **Skills** table above
 3. Commit with `feat: add <name> skill`
+
+## Adding a hook
+
+1. Create `.claude/hooks/<name>.py` (or `.sh`) with appropriate shebang; `chmod +x`
+2. Add the hook command to `settings.json` → `hooks.<EventName>`
+3. Add a row to the **Hooks** table above
+4. Commit with `feat: add <name> hook`
 
 ## Symlink setup
 

@@ -11,11 +11,13 @@ tasks:
       - mkdir -p $HOME/.claude
       - ln -shf {{.ROOT_DIR}}/.claude/agents        $HOME/.claude/agents
       - ln -shf {{.ROOT_DIR}}/.claude/skills         $HOME/.claude/skills
+      - ln -shf {{.ROOT_DIR}}/.claude/hooks          $HOME/.claude/hooks
       - ln -shf {{.ROOT_DIR}}/.claude/settings.json  $HOME/.claude/settings.json
       - |
         echo "Done. Linked:"
         echo "  ~/.claude/agents        -> {{.ROOT_DIR}}/.claude/agents"
         echo "  ~/.claude/skills        -> {{.ROOT_DIR}}/.claude/skills"
+        echo "  ~/.claude/hooks         -> {{.ROOT_DIR}}/.claude/hooks"
         echo "  ~/.claude/settings.json -> {{.ROOT_DIR}}/.claude/settings.json"
         echo ""
         echo "Runtime state (worktrees, etc.) stays in ~/.claude — not inside the repo."

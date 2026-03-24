@@ -7,5 +7,35 @@
         "repo": "anthropics/claude-plugins-official"
       }
     }
+  },
+  "allow": [
+    "Agent(*)",
+    "Bash(git status)",
+    "Bash(git diff --staged)",
+    "Bash(git log *)",
+    "Bash(git commit *)",
+    "Bash(git describe *)",
+    "Bash(git rev-list *)",
+    "Bash(date *)",
+    "Bash(task *)"
+  ],
+  "model": "sonnet",
+  "env": {
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/strategic_compact.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
   }
 }
