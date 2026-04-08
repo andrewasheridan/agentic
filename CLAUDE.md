@@ -24,17 +24,7 @@ Taskfile.yml        # Task runner (task setup, etc.)
 
 | Agent | Model | Role |
 |---|---|---|
-| `orchestrator` | sonnet | Default router — decomposes tasks, delegates to specialists |
-| `code-writer` | sonnet | Implementation code from a spec |
-| `test-writer` | sonnet | pytest test suites |
-| `docstring-writer` | haiku | Google-style docstrings |
-| `type-annotator` | sonnet | mypy --strict type annotations |
-| `reviewer` | sonnet | Advisory code review |
-| `complexity-reducer` | haiku | Flag overly complex code |
-| `dead-code-detector` | haiku | Find unused/unreachable code |
-| `adr-writer` | haiku | Architecture Decision Records |
-| `changelog-writer` | haiku | Changelog entries from commits |
-| `dependency-auditor` | sonnet | New dependency review |
+
 
 ## Skills
 
@@ -58,6 +48,9 @@ They run automatically on Claude Code tool events (configured in `settings.json`
 | Hook | Event | Purpose |
 |---|---|---|
 | `strategic_compact.py` | `PreToolUse` | Suggests `/compact` at tool-call thresholds |
+| `cbm-code-discovery-gate` | `PreToolUse` | Temind agents to prefer MCP graph tools when they reach for grep/glob/read, without blocking the tool call. |
+| `post_edit_python.py` | `PostToolUse` | Runs `task format && task link` after editing python files |
+
 
 Configure via env vars in `settings.json` → `env`: `COMPACT_THRESHOLD` (default 50), `COMPACT_REPEAT_INTERVAL` (default 25), `COUNTER_TTL_HOURS` (default 24).
 To disable, remove the hook entry from `settings.json` → `hooks.PreToolUse`.
@@ -71,11 +64,7 @@ To disable, remove the hook entry from `settings.json` → `hooks.PreToolUse`.
 
 ## Orchestration flows
 
-- **New feature**: `code-writer → docstring-writer → type-annotator → test-writer → reviewer → (adr-writer if needed)`
-- **Architectural decision**: `adr-writer` always (via `/adr` skill)
-- **New dependency**: `dependency-auditor` first, then proceed only if approved
-- **Release**: `/release` → `changelog-writer`
-
+...
 ## Adding an agent
 
 1. Run `/new-agent <name> — <one-line description>` to scaffold the file

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "python-mcp": {
+      "command": "/Users/andrew/Projects/python-mcp/.venv/bin/python-mcp"
+    }
+  }
+}

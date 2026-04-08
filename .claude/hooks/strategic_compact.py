@@ -191,3 +191,4 @@ if __name__ == "__main__":
     except Exception as exc:  # pylint: disable=broad-except
         print(f"strategic_compact error: {exc}", file=sys.stderr)
     sys.exit(0)
+

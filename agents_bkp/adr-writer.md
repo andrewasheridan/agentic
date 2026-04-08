@@ -47,3 +47,4 @@ What are the positive and negative consequences of this decision?
 - Use past tense for the decision ("We decided to…", "We chose…")
 - Do not pad with filler — if context is obvious, keep it brief
 - "Alternatives Considered" is required in every ADR
+
